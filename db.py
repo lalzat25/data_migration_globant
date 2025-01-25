@@ -14,4 +14,11 @@ url=URL.create(
 
 engine = create_engine(url)
 Session=sessionmaker(bind=engine)
-session=Session()
+#session=Session()
+
+def get_db() -> Session:
+    db = Session()  # Create a new session
+    try:
+        yield db  # This will be the session passed to your route
+    finally:
+        db.close()

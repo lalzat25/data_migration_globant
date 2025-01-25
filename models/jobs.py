@@ -4,9 +4,9 @@ from db import engine
 
 Base=declarative_base()
 
-class Deparments(Base):
-    __tablename__ = "deparments"
-    id = Column(Integer, primary_key=True)
-    deparment = Column(String)
+class Jobs(Base):
+    __tablename__="jobs"
+    id=Column(Integer, primary_key=True)
+    job=Column(String)
 
 Base.metadata.create_all(engine)
