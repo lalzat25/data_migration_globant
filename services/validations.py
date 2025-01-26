@@ -67,10 +67,14 @@ def validate_row_types(row, model):
     """
     columns = model.__table__.columns  # Obtiene las columnas del modelo
     for i, (column_name, column) in enumerate(columns.items()):
-        # Verifica si la columna es de tipo DateTime
         if str(column.type) == "DATETIME":
             try:
                 datetime.strptime(row[i], "%Y-%m-%dT%H:%M:%SZ")
             except ValueError:
-                return False, f"The column '{column_name}' expects a DATETIME, but the value '{row[i]}' is invalid. Row: {row}"
+                return False, f"The column '{column_name}' expects a {str(column.type)}, but the value '{row[i]}' is invalid. Row: {row}"
+        elif str(column.type) == "INTEGER":
+            try:
+                int(row[i])
+            except ValueError:
+                return False, f"The column '{column_name}' expects a {str(column.type)}, but the value '{row[i]}' is invalid. Row: {row}"
     return True, "All row types are valid."

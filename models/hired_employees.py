@@ -9,7 +9,7 @@ class HiredEmployees(Base):
     id=Column(Integer, primary_key=True)
     name=Column(String)
     datetime=Column(DateTime)
-    department_id=Column(String)
-    job_id=Column(String)
+    department_id=Column(Integer)
+    job_id=Column(Integer)
 
 Base.metadata.create_all(engine)

@@ -1,24 +1,26 @@
+from dotenv import load_dotenv
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.engine import URL
 from sqlalchemy.orm import sessionmaker
 
-url=URL.create(
-    drivername="postgresql",
-    username="postgres",
-    password="postgres",
-    host="localhost",
-    database="postgres",
-    port=5432
-)
+load_dotenv('.env.cloud')
 
+url = URL.create(
+    drivername=os.getenv("DB_DRIVER"),
+    username=os.getenv("DB_USERNAME"),
+    password=os.getenv("DB_PASSWORD"),
+    host=os.getenv("DB_HOST"),
+    database=os.getenv("DB_DATABASE"),
+    port=int(os.getenv("DB_PORT", 5432))
+)
 
 engine = create_engine(url)
 Session=sessionmaker(bind=engine)
-#session=Session()
 
 def get_db() -> Session:
-    db = Session()  # Create a new session
+    db = Session()
     try:
-        yield db  # This will be the session passed to your route
+        yield db
     finally:
         db.close()

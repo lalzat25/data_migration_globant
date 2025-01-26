@@ -1,3 +1,6 @@
 __pycache__
 venv
 docker-compose.yaml
+failed_transactions.log
+.env.local
+.env.cloud
